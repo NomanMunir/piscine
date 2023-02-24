@@ -1,22 +1,25 @@
 #include <stdio.h>
 
-char *ft_strcapitalize(char *str)
+unsigned int ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	int i = 0;
-	if (str[i] == '\0')
-		return (0);
-	while (str[i] == ' ')
-		i++;
-	while (str[i])
+	unsigned int i = 0;
+	while (*src && i < size - 1)
 	{
-	
+		dest[i] = src[i];
 		i++;
 	}
-	return str;
+	dest[i] = '\0';
+	while (src[i])
+		i++;
+	return i;
 }
 
-int main(int ac, char **av)
+int main(void)
 {
-	printf("%s", ft_strcapitalize(av[1]));
+	char dest[10];
+	unsigned int size = 11;
+	char src[] = "Hello world";
+	printf("src size: %u \n", ft_strlcpy(dest, src, size));
+	printf("dest: %s\n", dest);
 	return (0);
 }
