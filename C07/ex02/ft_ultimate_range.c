@@ -3,22 +3,21 @@
 #include <stdio.h>
 #include <string.h>
 
-int *ft_range(int min, int max)
+int ft_ultimate_range(int **range, int min, int max)
 {
-	int range = max - min - 1;
 	int *buffer;
+	int totalRange = max - min - 1;
 	int i;
-	if (min >= max)
-		return (0);
-	if ((buffer = malloc(sizeof(int) * range)) == NULL)
+	if ((buffer = malloc(sizeof(int) * totalRange)) == NULL)
 		return (0);
 	i = 0;
-	while (i <= range)
+	while (i <= totalRange)
 	{
 		buffer[i] = min + i;
 		i++;
 	}
-	return (buffer);
+	*range = buffer;
+	return (totalRange + 1);
 }
 
 void debug_dump_array(int numbers[], int size)
@@ -43,9 +42,13 @@ int main(void)
 {
 	int min;
 	int max;
+	int *range;
+	int bound;
 
-	min = -15;
+	min = -5;
 	max = 10;
-	printf("min = %d, max = %d -> ", min, max);
-	debug_dump_array(ft_range(min, max), max - min);
+	bound = ft_ultimate_range(&range, min, max);
+	printf("min = %d, max = %d -> (bound = %d) ", min, max, bound);
+	fflush(stdout);
+	debug_dump_array(range, bound + 2);
 }
